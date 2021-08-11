@@ -3,6 +3,7 @@ package com.kurella.amole
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.kurella.amole.databinding.ActivityMainBinding
@@ -51,8 +52,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
-
         binding.button.setOnClickListener {
             viewModel.onButtonClick(0)
         }
@@ -84,6 +83,21 @@ class MainActivity : AppCompatActivity() {
             viewModel.reset()
             binding.imageView.visibility = View.GONE
         }
+
+        binding.seekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                viewModel.level.value = p1
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+
+            }
+
+        })
     }
 
     private fun updateButtonColor(button: Button, color: Int) {

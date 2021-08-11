@@ -9,19 +9,23 @@ class MainViewModel : ViewModel() {
     var activeButtonLD = MutableLiveData(Pair(-1, -1))
     private lateinit var timer: CountDownTimer
     val winStateLD = MutableLiveData(false)
+    val level = MutableLiveData(100)
 
     companion object {
-        const val SECOND = 500.toLong()
+        const val MULTIPLE = 5.toLong()
     }
 
     init {
         startTimer()
+        level.observeForever {
+            startTimer()
+        }
     }
 
     private fun startTimer() {
         getRand()
 
-        timer = object : CountDownTimer(SECOND, SECOND) {
+        timer = object : CountDownTimer(level.value?.times(MULTIPLE)!!, level.value?.times(MULTIPLE)!!) {
             override fun onTick(millisUntilFinished: Long) {
 
             }
